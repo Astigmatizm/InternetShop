@@ -1,8 +1,8 @@
-﻿using InternetShop.Models;
-using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using internetShop.Models;
+using Microsoft.AspNetCore.Mvc;
 
-namespace InternetShop.Controllers
+namespace internetShop.Controllers
 {
     public class HomeController : Controller
     {

@@ -7,7 +7,7 @@ namespace InternetShop.Models
         [Key]
         public int Id { get; set; }
         [Required]
-        [Display(Name="Имя категории")]
+        [Display(Name = "Имя категории")]
         public string Name { get; set; } = null!;
         [Display(Name = "Порядок отображения")]
 

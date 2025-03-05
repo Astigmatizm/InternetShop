@@ -19,14 +19,14 @@ namespace InternetShop.Controllers
             return View(categories);
         }
         [HttpGet]
-        public IActionResult Create() 
-        {   
+        public IActionResult Create()
+        {
             return View();
         }
         [HttpPost]
-        public IActionResult Create( Category category) 
+        public IActionResult Create(Category category)
         {
-            if(ModelState.IsValid) 
+            if (ModelState.IsValid)
             {
                 _context.Categories.Add(category);
                 _context.SaveChanges();
