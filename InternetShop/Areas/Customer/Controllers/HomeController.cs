@@ -1,8 +1,8 @@
 using System.Diagnostics;
-using internetShop.Models;
+using InternetShop.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace internetShop.Controllers
+namespace internetShop.Areas.Customer.Controllers
 {
     public class HomeController : Controller
     {

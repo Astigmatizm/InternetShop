@@ -1,8 +1,7 @@
-﻿using internetShop.Models;
-namespace internetShop.DataAccess.Repository.Category;
+﻿using InternetShop.Models;
+namespace internetShop.DataAccess.Repository.CategoryAccess;
 
-internal interface ICategoryRepository
+public interface ICategoryRepository : IRepository<Category>
 {
-    void Update(Category entity);
     void Save();
 }
