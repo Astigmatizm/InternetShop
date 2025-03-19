@@ -1,13 +1,14 @@
-﻿using InternetShop.Models;
+﻿using System.Net.Http.Headers;
+using InternetShop.Models;
 using Microsoft.EntityFrameworkCore;
-
 namespace InternetShop.Data
 {
     public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) :
-            base(options)
-        { }
+            base(options) { Database.EnsureCreated(); }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -17,8 +18,27 @@ namespace InternetShop.Data
                     new Category { Id = 2, Name = "Horror", OrderDisplay = 2 },
                     new Category { Id = 3, Name = "Romantic", OrderDisplay = 3 }
                 );
+            modelBuilder.Entity<Product>().HasData(
+                new Product
+                {
+                    Id = 1,
+                    Title = "C# in month",
+                    Description = "Guide to C#",
+                    Author = "Jon Skeet",
+                    Price = 5999.99
+                },
+                new Product
+                {
+                    Id = 2,
+                    Title = "Clean Code",
+                    Description = "Best Practice for writing code",
+                    Author = "Robert Martin",
+                    Price = 9999.99
+                }
+            );
         }
-
+            
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Product> Products { get; set; }
     }
 }
