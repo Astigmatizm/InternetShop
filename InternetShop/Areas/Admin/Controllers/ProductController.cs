@@ -1,42 +1,44 @@
-﻿using internetShop.Models;
+﻿using internetShop.DataAccess.Repository.CategoryAccess;
+using internetShop.Models;
 using Microsoft.AspNetCore.Mvc;
-using internetShop.DataAccess.Repository.CategoryAccess;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace internetShop.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class CategoryController : Controller
+    public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public CategoryController(IUnitOfWork unitOfWork)
+        public ProductController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
         [HttpGet]
         public IActionResult Index()
         {
-            List<Category> categories = _unitOfWork.CategoryRepository.GetAll().ToList();
-            return View(categories);
+            var product = _unitOfWork.ProductRepository.GetAll();
+            return View();
         }
         [HttpGet]
         public IActionResult Create()
         {
+            ViewBag.CategoryList = _unitOfWork.CategoryRepository.GetAll();
+                 })
             return View();
         }
         [HttpGet]
-        public IActionResult Create(Category category)
+        public IActionResult Create(Product product)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.CategoryRepository.Add(category);
+                _unitOfWork.ProductRepository.Add(product);
                 _unitOfWork.Save();
 
                 TempData["SuccessMessage"] = "Запись успешно создана!";
                 return RedirectToAction("Index");
             }
             TempData["ErrorMessage"] = "Возникла ошибка";
-            return View(category);
+            return View(product);
         }
         [HttpGet]
         public IActionResult Edit(int? id)
@@ -45,27 +47,27 @@ namespace internetShop.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var category = _unitOfWork.CategoryRepository.GetById(x => x.Id == id);
+            var product = _unitOfWork.CategoryRepository.GetById(x => x.Id == id);
 
-            if (category == null)
+            if (product == null)
             {
                 return NotFound();
             }
-            return View(category);
+            return View(product);
         }
         [HttpPost]
-        public IActionResult Edit(Category category)
+        public IActionResult Edit(Product product)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.CategoryRepository.Update(category);
+                _unitOfWork.ProductRepository.Update(product);
                 _unitOfWork.Save();
 
                 TempData["SuccessMessage"] = "Запись успешно изменена!";
                 return RedirectToAction("Index");
             }
             TempData["ErrorMessage"] = "Возникла ошибка";
-            return View(category);
+            return View(product);
         }
         [HttpGet]
         public IActionResult Delete(int? id)
@@ -74,25 +76,25 @@ namespace internetShop.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var category = _unitOfWork.CategoryRepository.GetById(x => x.Id == id);
+            var product = _unitOfWork.CategoryRepository.GetById(x => x.Id == id);
 
-            if (category == null)
+            if (product == null)
             {
                 return NotFound();
             }
-            return View(category);
+            return View(product);
         }
         [HttpPost]
-        public IActionResult Delete(Category category)
+        public IActionResult Delete(Product product)
         {
-            if (category == null)
+            if (product == null)
             {
                 TempData["ErrorMessage"] = "Возникла ошибка";
                 return NotFound();
             }
-            _unitOfWork.CategoryRepository.Update(category);
+            _unitOfWork.ProductRepository.Delete    (product);
             _unitOfWork.Save();
-            TempData["SuccessMessage"] = "Запись успешно изменена!";
+            TempData["SuccessMessage"] = "Запись успешно создана!";
 
             return RedirectToAction("Index");
         }

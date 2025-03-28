@@ -2,6 +2,7 @@
 using InternetShop.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace internetShop.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250326143757_AddProduct")]
+    partial class AddProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,7 +24,7 @@ namespace internetShop.DataAccess.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("internetShop.Models.Category", b =>
+            modelBuilder.Entity("InternetShop.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -61,7 +64,7 @@ namespace internetShop.DataAccess.Migrations
                         });
                 });
 
-            modelBuilder.Entity("internetShop.Models.Product", b =>
+            modelBuilder.Entity("InternetShop.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -71,9 +74,6 @@ namespace internetShop.DataAccess.Migrations
 
                     b.Property<string>("Author")
                         .HasColumnType("text");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("integer");
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
@@ -87,8 +87,6 @@ namespace internetShop.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
-
                     b.ToTable("Products");
 
                     b.HasData(
@@ -96,7 +94,6 @@ namespace internetShop.DataAccess.Migrations
                         {
                             Id = 1,
                             Author = "Jon Skeet",
-                            CategoryId = 1,
                             Description = "Guide to C#",
                             Price = 5999.9899999999998,
                             Title = "C# in month"
@@ -105,22 +102,10 @@ namespace internetShop.DataAccess.Migrations
                         {
                             Id = 2,
                             Author = "Robert Martin",
-                            CategoryId = 2,
                             Description = "Best Practice for writing code",
                             Price = 9999.9899999999998,
                             Title = "Clean Code"
                         });
-                });
-
-            modelBuilder.Entity("internetShop.Models.Product", b =>
-                {
-                    b.HasOne("internetShop.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }

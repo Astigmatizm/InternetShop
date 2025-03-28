@@ -1,5 +1,5 @@
 using System.Diagnostics;
-using InternetShop.Models;
+using internetShop.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace internetShop.Areas.Customer.Controllers

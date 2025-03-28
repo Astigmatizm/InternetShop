@@ -1,5 +1,5 @@
 ﻿using InternetShop.Data;
-using InternetShop.Models;
+using internetShop.Models;
 
 
 namespace internetShop.DataAccess.Repository.CategoryAccess

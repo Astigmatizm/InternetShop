@@ -8,11 +8,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace InternetShop.Migrations
+namespace internetShop.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250319163757_AddProductModel")]
-    partial class AddProductModel
+    [Migration("20250326163154_AddForeignKeyCategory")]
+    partial class AddForeignKeyCategory
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ namespace InternetShop.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("InternetShop.Models.Category", b =>
+            modelBuilder.Entity("internetShop.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -64,7 +64,7 @@ namespace InternetShop.Migrations
                         });
                 });
 
-            modelBuilder.Entity("InternetShop.Models.Product", b =>
+            modelBuilder.Entity("internetShop.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -74,6 +74,9 @@ namespace InternetShop.Migrations
 
                     b.Property<string>("Author")
                         .HasColumnType("text");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
@@ -87,6 +90,8 @@ namespace InternetShop.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Products");
 
                     b.HasData(
@@ -94,6 +99,7 @@ namespace InternetShop.Migrations
                         {
                             Id = 1,
                             Author = "Jon Skeet",
+                            CategoryId = 1,
                             Description = "Guide to C#",
                             Price = 5999.9899999999998,
                             Title = "C# in month"
@@ -102,10 +108,22 @@ namespace InternetShop.Migrations
                         {
                             Id = 2,
                             Author = "Robert Martin",
+                            CategoryId = 2,
                             Description = "Best Practice for writing code",
                             Price = 9999.9899999999998,
                             Title = "Clean Code"
                         });
+                });
+
+            modelBuilder.Entity("internetShop.Models.Product", b =>
+                {
+                    b.HasOne("internetShop.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }

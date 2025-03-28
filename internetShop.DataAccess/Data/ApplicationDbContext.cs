@@ -1,5 +1,5 @@
 ﻿using System.Net.Http.Headers;
-using InternetShop.Models;
+using internetShop.Models;
 using Microsoft.EntityFrameworkCore;
 namespace InternetShop.Data
 {
@@ -25,15 +25,15 @@ namespace InternetShop.Data
                     Title = "C# in month",
                     Description = "Guide to C#",
                     Author = "Jon Skeet",
-                    Price = 5999.99
+                    Price = 5999.99,
+                    CategoryId = 1,
                 },
                 new Product
                 {
                     Id = 2,
-                    Title = "Clean Code",
-                    Description = "Best Practice for writing code",
-                    Author = "Robert Martin",
-                    Price = 9999.99
+                    Title = "Clean Code",SEF
+                    Price = 9999.99,
+                    CategoryId = 2,
                 }
             );
         }
