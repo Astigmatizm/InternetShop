@@ -1,4 +1,4 @@
-﻿@model List<Product>
+﻿@model List<Category>
 
 <div class="container">
     <div class="row pt-3 pd-3">
@@ -6,17 +6,16 @@
             <h2>Список категорий</h2>
         </div>
         <div class="col-6 text-end">
-            <a asp-controller="Product" asp-action="Create" class="btn btn-primary">Create Category</a>
+            <a asp-controller="Category" asp-action="Create" class="btn btn-primary">Create Category</a>
         </div>
     </div>
     <table class="table table-striped">
         <thead>
             <tr>
                 <td>Id</td>
-                <td>Title</td>
-                <td>Description</td>
-                <td>Author</td>
-                <td>Price</td>
+                <td>Name</td>
+                <td>OrderDisplay</td>
+                <td></td>
             </tr>
         </thead>
         <tbody>
@@ -24,16 +23,14 @@
             {
                 <tr>
                     <td>@item.Id</td>
-                    <td>@item.Title</td>
-                    <td>@item.Description</td>
-                    <td>@item.Author</td>
-                    <td>@item.Price</td>
+                    <td>@item.Name</td>
+                    <td>@item.OrderDisplay</td>
 					<td>
-						<a asp-controller="Product"
+						<a asp-controller="Category"
 						   asp-action="Edit" ]
 						   asp-route-id="@item.Id"
 						   class="btn btn-primary">Update</a>
-						<a asp-controller="Product"
+                        <a asp-controller="Category"
 						   asp-action="Delete"
 						   asp-route-id="@item.Id"
 						   class="btn btn-danger">Delete</a>

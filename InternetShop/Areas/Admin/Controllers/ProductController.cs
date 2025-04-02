@@ -1,4 +1,5 @@
-﻿using internetShop.DataAccess.Repository.CategoryAccess;
+﻿using internetShop.Areas.Admin.Models;
+using internetShop.DataAccess.Repository.CategoryAccess;
 using internetShop.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -16,27 +17,37 @@ namespace internetShop.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var product = _unitOfWork.ProductRepository.GetAll();
-            return View();
+            var product = _unitOfWork.ProductRepository.GetAllWithCategories();
+            return View(product);
         }
         [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.CategoryList = _unitOfWork.CategoryRepository.GetAll();
-                 })
+            ViewBag.CategoryList = _unitOfWork.CategoryRepository.GetAll()
+                .Select(c => new SelectListItem
+                {
+                    Text = c.Name,
+                    Value = c.Id.ToString()
+                });
             return View();
         }
-        [HttpGet]
-        public IActionResult Create(Product product)
+        [HttpPost]
+        public IActionResult Create(ProductViewModel product)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.ProductRepository.Add(product);
+                _unitOfWork.ProductRepository.Add(product.ProductVM);
                 _unitOfWork.Save();
 
                 TempData["SuccessMessage"] = "Запись успешно создана!";
                 return RedirectToAction("Index");
             }
+            product.CategoryList = _unitOfWork.CategoryRepository.GetAll()
+                .Select(c => new SelectListItem
+                {
+                    Text = c.Name,
+                    Value = c.Id.ToString()
+                });
             TempData["ErrorMessage"] = "Возникла ошибка";
             return View(product);
         }
@@ -47,25 +58,39 @@ namespace internetShop.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var product = _unitOfWork.CategoryRepository.GetById(x => x.Id == id);
-
-            if (product == null)
+            var product = new ProductViewModel
+            {
+                ProductVM = _unitOfWork.ProductRepository.GetById(x => x.Id == id),
+                CategoryList = _unitOfWork.CategoryRepository.GetAll()
+                .Select(c => new SelectListItem
+                {
+                    Text = c.Name,
+                    Value = c.Id.ToString()
+                })
+            };
+            if (product.ProductVM == null)
             {
                 return NotFound();
             }
             return View(product);
         }
         [HttpPost]
-        public IActionResult Edit(Product product)
+        public IActionResult Edit(ProductViewModel product)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.ProductRepository.Update(product);
+                _unitOfWork.ProductRepository.Update(product.ProductVM);
                 _unitOfWork.Save();
 
                 TempData["SuccessMessage"] = "Запись успешно изменена!";
                 return RedirectToAction("Index");
             }
+            product.CategoryList = _unitOfWork.CategoryRepository.GetAll()
+                .Select(c => new SelectListItem
+                {
+                    Text = c.Name,
+                    Value = c.Id.ToString()
+                });
             TempData["ErrorMessage"] = "Возникла ошибка";
             return View(product);
         }

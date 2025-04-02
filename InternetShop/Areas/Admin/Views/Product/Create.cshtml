@@ -1,0 +1,43 @@
+﻿@model ProductViewModel
+
+<form method="post">
+    <div class="border p-3 mt-4">
+        <div class="row pd-2">
+            <h2>Create Category</h2>
+            <hr />
+        </div>
+        <div class="mb-3">
+            <label asp-for="ProductVM.Title" class="form-label"></label>
+            <input asp-for="ProductVM.Title" class="form-control" />
+            <span asp-validation-for="ProductVM.Title" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="ProductVM.Description" class="form-label"></label>
+            <input asp-for="ProductVM.Description" class="form-control" />
+            <span asp-validation-for="ProductVM.Description" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="ProductVM.Author" class="form-label"></label>
+            <input asp-for="ProductVM.Author" class="form-control" />
+            <span asp-validation-for="ProductVM.Author" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="ProductVM.Price" class="form-label"></label>
+            <input asp-for="ProductVM.Price" class="form-control" />
+            <span asp-validation-for="ProductVM.Price" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="ProductVM.CategoryId" class="control-label"></label>
+            <input asp-for="ProductVM.CategoryId" asp-items="ViewBag.CategoryList" class="form-control" />
+            <span asp-validation-for="ProductVM.CategoryId" class="text-danger"></span>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-12">
+                <button type="submit" class="btn btn-success">Create</button>
+            </div>
+            <div class="col-md-6 col-12">
+                <a asp-controller="Category" asp-action="Index" class="btn btn-secondary">Back to Category</a>
+            </div>
+        </div>
+    </div>
+</form>

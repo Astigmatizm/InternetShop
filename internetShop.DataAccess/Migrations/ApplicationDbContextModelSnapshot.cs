@@ -104,9 +104,9 @@ namespace internetShop.DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            Author = "Robert Martin",
+                            Author = "Jon Skeet",
                             CategoryId = 2,
-                            Description = "Best Practice for writing code",
+                            Description = "Guide to C#",
                             Price = 9999.9899999999998,
                             Title = "Clean Code"
                         });

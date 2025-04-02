@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace internetShop.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250326163154_AddForeignKeyCategory")]
+    [Migration("20250402150527_AddForeignKeyCategory")]
     partial class AddForeignKeyCategory
     {
         /// <inheritdoc />
@@ -107,9 +107,9 @@ namespace internetShop.DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            Author = "Robert Martin",
+                            Author = "Jon Skeet",
                             CategoryId = 2,
-                            Description = "Best Practice for writing code",
+                            Description = "Guide to C#",
                             Price = 9999.9899999999998,
                             Title = "Clean Code"
                         });

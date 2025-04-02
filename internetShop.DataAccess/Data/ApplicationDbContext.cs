@@ -31,7 +31,9 @@ namespace InternetShop.Data
                 new Product
                 {
                     Id = 2,
-                    Title = "Clean Code",SEF
+                    Title = "Clean Code",
+                    Description = "Guide to C#",
+                    Author = "Jon Skeet",
                     Price = 9999.99,
                     CategoryId = 2,
                 }
